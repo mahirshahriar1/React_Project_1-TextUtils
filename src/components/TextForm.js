@@ -15,6 +15,22 @@ export default function TextForm(props) {
         setText(newtext);
         setPreview(newtext);
     };
+    const clearText = () => {
+        let newtext = "";
+        setText(newtext);
+        setPreview(newtext);
+    };
+    const handleCopy = () => {
+        let temp=document.getElementById("myForm");
+        temp.select();
+        temp.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(temp.value);
+    }
+    const handleExtraSpaces = () => {
+        let newtext = text.split(/[ ]+/);
+        setText(newtext.join(" "));
+        setPreview(newtext.join(" "));
+    }
 
     const handleOnChange = (event) => {
         setText(event.target.value);
@@ -54,6 +70,7 @@ export default function TextForm(props) {
         setCharCount(text.length);
     }, [text]);
 
+   
 
     return (
         <>
@@ -61,20 +78,25 @@ export default function TextForm(props) {
 
                 <h1>{props.heading}</h1>
                 <div className="mb-3">
-                    <textarea className="form-control" value={text} onClick={clear} onChange={handleOnChange} id="exampleFormControlTextarea1" rows="8"></textarea>
+                    <textarea className="form-control" value={text} onClick={clear} onChange={handleOnChange} id="myForm" rows="8"></textarea>
                 </div>
-                <div>
-                    <button className="btn btn-primary" onClick={handleUpClick}>Conver To UpperCase</button>
-                </div>
-                <div>
-                    <button className="btn btn-primary my-3" onClick={handleLoClick}>Conver To LowerCase</button>
+                <div className="container my-3">
+                    <button className="btn btn-primary mx-1" onClick={handleUpClick}>Conver To UpperCase</button>
+                
+                    <button className="btn btn-primary mx-1" onClick={handleLoClick}>Conver To LowerCase</button>
+                
+                    <button className="btn btn-primary mx-1" onClick={clearText}>Clear Text</button>
+                
+                    <button className="btn btn-primary mx-1" onClick={handleCopy}>Copy Text</button>
+               
+                    <button className="btn btn-primary mx-1" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
                 </div>
             </div>
             <div className="container my-5">
                 <h2>Your text summary</h2>
-                <p>{wordCount} words and {charCount} characters</p>
-                <p>{0.008 * wordCount} Minutes read</p>
-                <h2>Preview</h2>
+                <p className="fw-bold">{wordCount} words and {charCount} characters</p>                
+                <p className="fw-bold">{0.008 * wordCount} Minutes read</p>
+                <h2 className="fw-bold">Preview</h2>
                 <p className="border border-dark bg-dark text-light">{preview}</p>
             </div>
         </>
@@ -84,3 +106,5 @@ export default function TextForm(props) {
 TextForm.propTypes = {
     heading: PropTypes.string
 }
+
+
