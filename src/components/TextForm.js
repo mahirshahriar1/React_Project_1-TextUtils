@@ -9,32 +9,37 @@ export default function TextForm(props) {
         let newtext = text.toUpperCase();
         setText(newtext);
         setPreview(newtext);
+        props.showAlert("Converted to Uppercase!", "success");
     };
     const handleLoClick = () => {
         let newtext = text.toLowerCase();
         setText(newtext);
         setPreview(newtext);
+        props.showAlert("Converted to Lowercase!", "success");
     };
     const clearText = () => {
         let newtext = "";
         setText(newtext);
         setPreview(newtext);
+        props.showAlert("Text Cleared!", "success");
     };
     const handleCopy = () => {
         let temp=document.getElementById("myForm");
         temp.select();
         temp.setSelectionRange(0, 99999);
         navigator.clipboard.writeText(temp.value);
+        props.showAlert("Copied to Clipboard!", "success");
     }
     const handleExtraSpaces = () => {
         let newtext = text.split(/[ ]+/);
         setText(newtext.join(" "));
         setPreview(newtext.join(" "));
+        props.showAlert("Extra spaces removed!", "success");
     }
 
     const handleOnChange = (event) => {
         setText(event.target.value);
-        setPreview(event.target.value);
+        setPreview(event.target.value);       
     };
     const clear = () => {
         if (flag === false) {
@@ -74,13 +79,14 @@ export default function TextForm(props) {
 
     return (
         <>
-            <div className="container">
+            <div className="container" style={{color: props.mode ==='dark'?'white':'black'}}>
 
                 <h1>{props.heading}</h1>
-                <div className="mb-3">
-                    <textarea className="form-control" value={text} onClick={clear} onChange={handleOnChange} id="myForm" rows="8"></textarea>
+                <div className="mb-3 ">
+                    <textarea className="form-control fw-bold" value={text} onClick={clear} onChange={handleOnChange}
+                    style={{backgroundColor: props.mode ==='dark'?'#6c757d':'white', color:props.mode ==='dark'?'white':'black' }} id="myForm" rows="8"></textarea>
                 </div>
-                <div className="container my-3">
+                <div className="container my-3" >
                     <button className="btn btn-primary mx-1" onClick={handleUpClick}>Conver To UpperCase</button>
                 
                     <button className="btn btn-primary mx-1" onClick={handleLoClick}>Conver To LowerCase</button>
@@ -92,12 +98,13 @@ export default function TextForm(props) {
                     <button className="btn btn-primary mx-1" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
                 </div>
             </div>
-            <div className="container my-5">
+            <div className="container my-5" style={{color: props.mode ==='dark'?'white':'black'}}>
                 <h2>Your text summary</h2>
                 <p className="fw-bold">{wordCount} words and {charCount} characters</p>                
                 <p className="fw-bold">{0.008 * wordCount} Minutes read</p>
                 <h2 className="fw-bold">Preview</h2>
-                <p className="border border-dark bg-dark text-light">{preview}</p>
+                <p className="border border-dark bg-dark text-light">{preview.length>0?preview:"Enter Something in the textbox above to preview here."}</p>
+            
             </div>
         </>
     )
