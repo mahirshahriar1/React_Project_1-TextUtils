@@ -33,6 +33,13 @@ export default function About(props) {
         toggleStyle();
     }, [props.mode]);
 
+     // let myStyle ={
+    //     color: props.mode === 'dark'?'white':'black',   
+    //     backgroundColor: props.mode === 'dark'?'#212529':'white',
+    //     border: props.mode === 'dark'?'1px solid white':'1px solid black',
+    //     border
+    // }
+
 
     return (
         <div className="container " style={myStyle}>

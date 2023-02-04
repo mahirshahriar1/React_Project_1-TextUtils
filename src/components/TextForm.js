@@ -24,7 +24,7 @@ export default function TextForm(props) {
         props.showAlert("Text Cleared!", "success");
     };
     const handleCopy = () => {
-        let temp=document.getElementById("myForm");
+        let temp = document.getElementById("myForm");
         temp.select();
         temp.setSelectionRange(0, 99999);
         navigator.clipboard.writeText(temp.value);
@@ -39,7 +39,7 @@ export default function TextForm(props) {
 
     const handleOnChange = (event) => {
         setText(event.target.value);
-        setPreview(event.target.value);       
+        setPreview(event.target.value);
     };
     const clear = () => {
         if (flag === false) {
@@ -75,41 +75,41 @@ export default function TextForm(props) {
         setCharCount(text.length);
     }, [text]);
 
-   
+
 
     return (
         <>
-            <div className="container" style={{color: props.mode ==='dark'?'white':'black'}}>
+            <div className="container" style={{ color: props.mode === 'dark' ? 'white' : 'black' }}>
 
                 <h1>{props.heading}</h1>
                 <div className="mb-3 ">
                     <textarea className="form-control fw-bold" value={text} onClick={clear} onChange={handleOnChange}
-                    style={{backgroundColor: props.mode ==='dark'?'#6c757d':'white', color:props.mode ==='dark'?'white':'black' }} id="myForm" rows="8"></textarea>
+                        style={{ backgroundColor: props.mode === 'dark' ? '#6c757d' : 'white', color: props.mode === 'dark' ? 'white' : 'black' }} id="myForm" rows="8"></textarea>
                 </div>
                 <div className="container my-3" >
-                    <button className="btn btn-primary mx-1" onClick={handleUpClick}>Conver To UpperCase</button>
-                
-                    <button className="btn btn-primary mx-1" onClick={handleLoClick}>Conver To LowerCase</button>
-                
-                    <button className="btn btn-primary mx-1" onClick={clearText}>Clear Text</button>
-                
-                    <button className="btn btn-primary mx-1" onClick={handleCopy}>Copy Text</button>
-               
-                    <button className="btn btn-primary mx-1" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
+                    <button disabled={text.length===0 || flag===false} className="btn btn-primary mx-1 my-1" onClick={handleUpClick}>Conver To UpperCase</button>
+
+                    <button  disabled={text.length===0 || flag===false} className="btn btn-primary mx-1 my-1" onClick={handleLoClick}>Conver To LowerCase</button>
+
+                    <button  disabled={text.length===0 || flag===false} className="btn btn-primary mx-1 my-1" onClick={clearText}>Clear Text</button>
+
+                    <button  disabled={text.length===0 || flag===false} className="btn btn-primary mx-1 my-1" onClick={handleCopy}>Copy Text</button>
+
+                    <button  disabled={text.length===0 || flag===false} className="btn btn-primary mx-1 my-1" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
                 </div>
             </div>
-            <div className="container my-5" style={{color: props.mode ==='dark'?'white':'black'}}>
+            <div className="container my-5" style={{ color: props.mode === 'dark' ? 'white' : 'black' }}>
                 <h2>Your text summary</h2>
-                <p className="fw-bold">{wordCount} words and {charCount} characters</p>                
+                <p className="fw-bold">{wordCount} words and {charCount} characters</p>
                 <p className="fw-bold">{0.008 * wordCount} Minutes read</p>
                 <h2 className="fw-bold">Preview</h2>
-                <p className="border border-dark bg-dark text-light">{preview.length>0?preview:"Enter Something in the textbox above to preview here."}</p>
-            
+                <p className="border border-dark bg-dark text-light">{preview.length > 0 ? preview : "Enter Something in the textbox above to preview here."}</p>
+
             </div>
         </>
     )
 }
-
+/* (text.split(" ").filter((element)=>{return element.length!==0}).length) */
 TextForm.propTypes = {
     heading: PropTypes.string
 }
