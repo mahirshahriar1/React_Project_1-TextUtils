@@ -61,8 +61,10 @@ export default function TextForm(props) {
 
         // update word count
         let wordCount = 0;
+        var regExp = /[a-zA-Z]/g;
         words.forEach((word) => {
             if (word.trim() !== '') {
+               if(regExp.test(word))
                 wordCount++;
             }
         });
@@ -97,7 +99,7 @@ export default function TextForm(props) {
             </div>
             <div className="container my-5" style={{ color: props.mode === 'dark' ? 'white' : 'black' }}>
                 <h2>Your text summary</h2>
-                <p className="fw-bold">{flag===true && (text.split(/\s+/).filter((element)=>{return element.length!==0}).length)} {flag===false?0:''} words and {charCount} characters</p>
+                <p className="fw-bold">{wordCount} words and {charCount} characters</p>
                 <p className="fw-bold">{0.008 * wordCount} Minutes read</p>
                 <h2 className="fw-bold">Preview</h2>
                 <p className="border border-dark bg-dark text-light">{preview.length > 0 ? preview : "Enter Something in the textbox above to preview here."}</p>
