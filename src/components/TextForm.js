@@ -52,7 +52,7 @@ export default function TextForm(props) {
 
     // character count
     const [charCount, setCharCount] = useState(0);
-    useEffect(() => {
+       useEffect(() => {
         if (flag === false) {
             return;
         }
@@ -61,11 +61,16 @@ export default function TextForm(props) {
 
         // update word count
         let wordCount = 0;
-        var regExp = /[a-zA-Z]/g;
+
+        //regex alphabet and number
+        let regex = /^[A-Za-z0-9]+$/;
         words.forEach((word) => {
             if (word.trim() !== '') {
-               if(regExp.test(word))
-                wordCount++;
+                if(word.match(regex))
+                {                  
+                    wordCount++;                   
+                }
+                
             }
         });
         setWordCount(wordCount);
